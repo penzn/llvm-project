@@ -949,7 +949,6 @@ void Writer::createMiscChunks() {
   OutputSection *debugInfoSec = config->mingw ? buildidSec : rdataSec;
   if (config->debug || config->repro || config->cetCompat) {
     debugDirectory = make<DebugDirectoryChunk>(debugRecords, config->repro);
-    debugDirectory->setAlignment(4);
     debugInfoSec->addChunk(debugDirectory);
   }
 
@@ -966,6 +965,7 @@ void Writer::createMiscChunks() {
     ExtendedDllCharacteristicsChunk *extendedDllChars =
         make<ExtendedDllCharacteristicsChunk>(
             IMAGE_DLL_CHARACTERISTICS_EX_CET_COMPAT);
+    extendedDllChars->setAlignment(4);
     debugRecords.push_back(
         {COFF::IMAGE_DEBUG_TYPE_EX_DLLCHARACTERISTICS, extendedDllChars});
   }
