@@ -949,7 +949,6 @@ void Writer::createMiscChunks() {
   OutputSection *debugInfoSec = config->mingw ? buildidSec : rdataSec;
   if (config->debug || config->repro || config->cetCompat) {
     debugDirectory = make<DebugDirectoryChunk>(debugRecords, config->repro);
-    debugDirectory->setAlignment(4);
     debugInfoSec->addChunk(debugDirectory);
   }
 
@@ -971,8 +970,12 @@ void Writer::createMiscChunks() {
   }
 
   if (debugRecords.size() > 0) {
-    for (std::pair<COFF::DebugType, Chunk *> r : debugRecords)
+    for (std::pair<COFF::DebugType, Chunk *> r : debugRecords) {
+      // Ensure that every debug directory is aligned on 4 bytes
+      if (r.second->getAlignment() < 4) 
+          r.second->setAlignment(4);
       debugInfoSec->addChunk(r.second);
+    }
   }
 
   // Create SEH table. x86-only.
