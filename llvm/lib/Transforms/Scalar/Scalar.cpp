@@ -23,6 +23,7 @@
 #include "llvm/InitializePasses.h"
 #include "llvm/Transforms/Scalar/GVN.h"
 #include "llvm/Transforms/Scalar/Scalarizer.h"
+#include "llvm/Transforms/Scalar/SimpleLoopUnswitch.h"
 #include "llvm/Transforms/Utils/UnifyFunctionExitNodes.h"
 
 using namespace llvm;
@@ -246,6 +247,10 @@ void LLVMAddScalarReplAggregatesPassWithThreshold(LLVMPassManagerRef PM,
 
 void LLVMAddSimplifyLibCallsPass(LLVMPassManagerRef PM) {
   // NOTE: The simplify-libcalls pass has been removed.
+}
+
+void LLVMAddSimpleLoopUnswitchPass(LLVMPassManagerRef PM) {
+  unwrap(PM)->add(createSimpleLoopUnswitchLegacyPass());
 }
 
 void LLVMAddTailCallEliminationPass(LLVMPassManagerRef PM) {

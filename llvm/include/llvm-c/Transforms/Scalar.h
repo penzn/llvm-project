@@ -119,6 +119,9 @@ void LLVMAddScalarReplAggregatesPassSSA(LLVMPassManagerRef PM);
 void LLVMAddScalarReplAggregatesPassWithThreshold(LLVMPassManagerRef PM,
                                                   int Threshold);
 
+/** See llvm::createSimpleLoopUnswitchPass function. */
+void LLVMAddSimpleLoopUnswitchPass(LLVMPassManagerRef PM);
+
 /** See llvm::createSimplifyLibCallsPass function. */
 void LLVMAddSimplifyLibCallsPass(LLVMPassManagerRef PM);
 
