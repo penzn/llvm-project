@@ -858,16 +858,21 @@ void Driver::CreateOffloadingDeviceToolChains(Compilation &C,
       // following iterations.
       FoundNormalizedTriples[NormalizedName] = Val;
 
+      // Get host toolchain for NVPTX and Wasm
+      const ToolChain *HostTC =
+          C.getSingleOffloadToolChain<Action::OFK_Host>();
+
       // If the specified target is invalid, emit a diagnostic.
       if (TT.getArch() == llvm::Triple::UnknownArch)
         Diag(clang::diag::err_drv_invalid_omp_target) << Val;
-      else {
+      else if (TT.isWasm() && HostTC && TT == HostTC->getTriple()) {
+          // Don't do anything, Wasm is emitted as one module
+          continue;
+      } else {
         const ToolChain *TC;
         // Device toolchains have to be selected differently. They pair host
         // and device in their implementation.
         if (TT.isNVPTX() || TT.isAMDGCN()) {
-          const ToolChain *HostTC =
-              C.getSingleOffloadToolChain<Action::OFK_Host>();
           assert(HostTC && "Host toolchain should be always defined.");
           auto &DeviceTC =
               ToolChains[TT.str() + "/" + HostTC->getTriple().normalize()];
