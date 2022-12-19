@@ -168,14 +168,6 @@ def int_wasm_swizzle :
   DefaultAttrsIntrinsic<[llvm_v16i8_ty],
                         [llvm_v16i8_ty, llvm_v16i8_ty],
                         [IntrNoMem, IntrSpeculatable]>;
-def int_wasm_shuffle :
-  DefaultAttrsIntrinsic<[llvm_v16i8_ty],
-                        [llvm_v16i8_ty, llvm_v16i8_ty, llvm_i32_ty,
-                         llvm_i32_ty, llvm_i32_ty, llvm_i32_ty, llvm_i32_ty,
-                         llvm_i32_ty, llvm_i32_ty, llvm_i32_ty, llvm_i32_ty,
-                         llvm_i32_ty, llvm_i32_ty, llvm_i32_ty, llvm_i32_ty,
-                         llvm_i32_ty, llvm_i32_ty, llvm_i32_ty],
-                        [IntrNoMem, IntrSpeculatable]>;
 def int_wasm_sub_sat_signed :
   DefaultAttrsIntrinsic<[llvm_anyvector_ty],
                         [LLVMMatchType<0>, LLVMMatchType<0>],

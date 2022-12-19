@@ -2706,48 +2706,48 @@ v128_t test_f64x2_promote_low_f32x4(v128_t a) {
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[A:%.*]] to <16 x i8>
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <16 x i8> @llvm.wasm.shuffle(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], i32 15, i32 14, i32 13, i32 12, i32 11, i32 10, i32 9, i32 8, i32 7, i32 6, i32 5, i32 4, i32 3, i32 2, i32 1, i32 0)
+// CHECK-NEXT:    [[TMP2:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i32> <i32 23, i32 22, i32 21, i32 20, i32 19, i32 18, i32 17, i32 16, i32 7, i32 6, i32 5, i32 4, i32 3, i32 2, i32 1, i32 0>
 // CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <4 x i32>
 // CHECK-NEXT:    ret <4 x i32> [[TMP3]]
 //
 v128_t test_i8x16_shuffle(v128_t a, v128_t b) {
-  return wasm_i8x16_shuffle(a, b, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0);
+  return wasm_i8x16_shuffle(a, b, 23, 22, 21, 20, 19, 18, 17, 16, 7, 6, 5, 4, 3, 2, 1, 0);
 }
 
 // CHECK-LABEL: @test_i16x8_shuffle(
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[A:%.*]] to <16 x i8>
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <16 x i8> @llvm.wasm.shuffle(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], i32 14, i32 15, i32 12, i32 13, i32 10, i32 11, i32 8, i32 9, i32 6, i32 7, i32 4, i32 5, i32 2, i32 3, i32 0, i32 1)
+// CHECK-NEXT:    [[TMP2:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i32> <i32 22, i32 23, i32 20, i32 21, i32 18, i32 19, i32 16, i32 17, i32 6, i32 7, i32 4, i32 5, i32 2, i32 3, i32 0, i32 1>
 // CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <4 x i32>
 // CHECK-NEXT:    ret <4 x i32> [[TMP3]]
 //
 v128_t test_i16x8_shuffle(v128_t a, v128_t b) {
-  return wasm_i16x8_shuffle(a, b, 7, 6, 5, 4, 3, 2, 1, 0);
+  return wasm_i16x8_shuffle(a, b, 11, 10, 9, 8, 3, 2, 1, 0);
 }
 
 // CHECK-LABEL: @test_i32x4_shuffle(
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[A:%.*]] to <16 x i8>
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <16 x i8> @llvm.wasm.shuffle(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], i32 12, i32 13, i32 14, i32 15, i32 8, i32 9, i32 10, i32 11, i32 4, i32 5, i32 6, i32 7, i32 0, i32 1, i32 2, i32 3)
+// CHECK-NEXT:    [[TMP2:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i32> <i32 20, i32 21, i32 22, i32 23, i32 16, i32 17, i32 18, i32 19, i32 4, i32 5, i32 6, i32 7, i32 0, i32 1, i32 2, i32 3>
 // CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <4 x i32>
 // CHECK-NEXT:    ret <4 x i32> [[TMP3]]
 //
 v128_t test_i32x4_shuffle(v128_t a, v128_t b) {
-  return wasm_i32x4_shuffle(a, b, 3, 2, 1, 0);
+  return wasm_i32x4_shuffle(a, b, 5, 4, 1, 0);
 }
 
 // CHECK-LABEL: @test_i64x2_shuffle(
 // CHECK-NEXT:  entry:
 // CHECK-NEXT:    [[TMP0:%.*]] = bitcast <4 x i32> [[A:%.*]] to <16 x i8>
 // CHECK-NEXT:    [[TMP1:%.*]] = bitcast <4 x i32> [[B:%.*]] to <16 x i8>
-// CHECK-NEXT:    [[TMP2:%.*]] = tail call <16 x i8> @llvm.wasm.shuffle(<16 x i8> [[TMP0]], <16 x i8> [[TMP1]], i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7)
+// CHECK-NEXT:    [[TMP2:%.*]] = shufflevector <16 x i8> [[TMP0]], <16 x i8> [[TMP1]], <16 x i32> <i32 16, i32 17, i32 18, i32 19, i32 20, i32 21, i32 22, i32 23, i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7>
 // CHECK-NEXT:    [[TMP3:%.*]] = bitcast <16 x i8> [[TMP2]] to <4 x i32>
 // CHECK-NEXT:    ret <4 x i32> [[TMP3]]
 //
 v128_t test_i64x2_shuffle(v128_t a, v128_t b) {
-  return wasm_i64x2_shuffle(a, b, 1, 0);
+  return wasm_i64x2_shuffle(a, b, 2, 0);
 }
 
 // CHECK-LABEL: @test_i8x16_swizzle(
